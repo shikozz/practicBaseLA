@@ -42,7 +42,14 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="prodList" ItemTemplate="{StaticResource listTemplate}" SelectionChanged="prodList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Label FontWeight="Heavy" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Comic Sans MS" Grid.Row="0" Content="ПОСУДА"/>
+        <DockPanel Grid.Row="1" Visibility="Visible">
+            <Button Width="100" Margin="5" Content="Добавить"/>
+            <Button Width="100" Margin="5" Content="Редактировать"/>
+            <Button Width="100" Margin="5" Content="Удалить"/>
+            <Rectangle/>
+        </DockPanel>
+        <ListBox Grid.Row="2" x:Name="prodList"  ItemTemplate="{StaticResource listTemplate}" SelectionChanged="prodList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel />
