@@ -8,9 +8,13 @@
         Title="MainWindow" Height="450" Width="1080" MinWidth="1080">
     <Window.Resources>
         <DataTemplate x:Key="listTemplate">
+            <Border BorderBrush="Black" BorderThickness="2">
             <DockPanel Margin="5" Width="1000">
-                <Image Width="100" Height="75" Source="{Binding Path=ProductPhoto}" />
-                <StackPanel>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,10,0">
+                        <Image Width="125" Height="125" Source="{Binding Path=ProductPhoto}" />
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                <StackPanel Width="725">
                     <DockPanel>
                         <Label FontWeight="Heavy" FontSize="16" FontFamily="Comic Sans MS" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Наименование: "/>
                         <TextBlock FontSize="16" FontFamily="Comic Sans MS" Text="{Binding Path=ProductName}" VerticalAlignment="Center" HorizontalAlignment="Left" />
@@ -28,11 +32,15 @@
                         <TextBlock FontSize="16" FontFamily="Comic Sans MS" Text="{Binding Path=ProductCost}" VerticalAlignment="Center" HorizontalAlignment="Left" />
                     </DockPanel>
                 </StackPanel>
-                <DockPanel HorizontalAlignment="Right">
+                </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="10,0,0,0">
+                <DockPanel HorizontalAlignment="Center">
                     <Label FontWeight="Heavy" FontSize="16" FontFamily="Comic Sans MS" Content="Кол-во: " VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     <TextBlock FontSize="16" FontFamily="Comic Sans MS" Text="{Binding Path=ProductQuantityInStock}" VerticalAlignment="Center" HorizontalAlignment="Right" />
                 </DockPanel>
-            </DockPanel>
+                    </Border>
+                </DockPanel>
+            </Border>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -43,12 +51,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label FontWeight="Heavy" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Comic Sans MS" Grid.Row="0" Content="ПОСУДА"/>
-        <DockPanel Grid.Row="1" Visibility="Visible">
-            <Button Width="100" Margin="5" Content="Добавить"/>
-            <Button Width="100" Margin="5" Content="Редактировать"/>
-            <Button Width="100" Margin="5" Content="Удалить"/>
+        <DockPanel x:Name="adminpanel" Grid.Row="1" Visibility="Visible">
+            <Button FontFamily="Comic Sans MS" FontSize="15" x:Name="addbtn" Width="120" Margin="5" Content="Добавить" Click="addbtnclick" />
+            <Button FontFamily="Comic Sans MS" FontSize="15"  x:Name="redactbtn" Width="120" Margin="5" Content="Редактировать" Click="redactbtn_Click"/>
+            <Button FontFamily="Comic Sans MS" FontSize="15"  x:Name="delbtn" Width="120" Margin="5" Content="Удалить" Click="delbtn_Click"/>
             <Rectangle/>
         </DockPanel>
+        <Button x:Name="exit" FontFamily="Comic Sans MS" FontSize="15" Content="Выход" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="5" Click="exit_Click"/>
         <ListBox Grid.Row="2" x:Name="prodList"  ItemTemplate="{StaticResource listTemplate}" SelectionChanged="prodList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>

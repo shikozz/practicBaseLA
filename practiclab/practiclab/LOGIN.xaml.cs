@@ -23,15 +23,12 @@ namespace practiclab
 
         private Base.practic_LAEntities DataBase;
         private DispatcherTimer dispatcherTimer;
-        private bool needCaptcha = false;
-        private int sec = 0;
 
         public LOGIN()
         {
             InitializeComponent();
             loginbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             guestbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
-            captchabtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             dispatcherTimer = new DispatcherTimer();
 
             try
@@ -52,7 +49,7 @@ namespace practiclab
             Base.User User = DataBase.User.SingleOrDefault(U => U.UserLogin == logintxt.Text && U.UserPassword == passtxt.Text);
             if (User !=null && captchatxt.Text==captchaInput.Text)
             {
-                MainWindow window = new MainWindow();
+                MainWindow window = new MainWindow(User.UserRole);
                 window.Show();
                 Close();
             }
@@ -64,7 +61,6 @@ namespace practiclab
                 dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
                 dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
                 dispatcherTimer.Start();
-                captchab.Visibility = Visibility;
                 captchat.Visibility = Visibility;
                 captchai.Visibility = Visibility;
                 generateCaptcha();
@@ -105,12 +101,11 @@ namespace practiclab
             Autho();
         }
 
-        private void captchabtn_Click(object sender, RoutedEventArgs e)
+        private void guestbtn_Click(object sender, RoutedEventArgs e)
         {
-            if(captchaInput.Text == captchatxt.Text)
-            {
-                needCaptcha = false;
-            }
+            MainWindow window = new MainWindow(10);
+            window.Show();
+            Close();
         }
     }
 }
