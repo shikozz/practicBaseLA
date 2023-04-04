@@ -23,6 +23,7 @@ namespace practiclab
 
         private Base.practic_LAEntities DataBase;
         private DispatcherTimer dispatcherTimer;
+        public int userId = 0;
 
         public LOGIN()
         {
@@ -43,27 +44,40 @@ namespace practiclab
             }
         }
 
-        private void Autho()
+        public void Autho(string login, string pass, Base.practic_LAEntities DataBaseTest)
         {
             captchaInput.Text = " " + captchaInput.Text;
-            Base.User User = DataBase.User.SingleOrDefault(U => U.UserLogin == logintxt.Text && U.UserPassword == passtxt.Text);
-            if (User !=null && captchatxt.Text==captchaInput.Text)
+            if (login == null && pass == null)
             {
-                MainWindow window = new MainWindow(User.UserRole);
-                window.Show();
-                Close();
+                Base.User User = DataBase.User.SingleOrDefault(U => U.UserLogin == logintxt.Text && U.UserPassword == passtxt.Text);
+
+                if (User != null && captchatxt.Text == captchaInput.Text)
+                {
+                    MainWindow window = new MainWindow(User.UserRole);
+                    window.Show();
+                    Close();
+                }
+                else
+                {
+
+                    loginbtn.IsEnabled = false;
+                    guestbtn.IsEnabled = false;
+                    dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+                    dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+                    dispatcherTimer.Start();
+                    captchat.Visibility = Visibility;
+                    captchai.Visibility = Visibility;
+                    generateCaptcha();
+                }
             }
             else
             {
+                Base.User User = DataBaseTest.User.SingleOrDefault(U => U.UserLogin == login && U.UserPassword == pass);
 
-                loginbtn.IsEnabled = false;
-                guestbtn.IsEnabled= false;
-                dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-                dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-                dispatcherTimer.Start();
-                captchat.Visibility = Visibility;
-                captchai.Visibility = Visibility;
-                generateCaptcha();
+                if (User != null && captchatxt.Text == captchaInput.Text)
+                {
+                    userId = User.UserID;
+                }
             }
         }
 
@@ -98,7 +112,7 @@ namespace practiclab
 
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
-            Autho();
+            Autho(null,null,null);
         }
 
         private void guestbtn_Click(object sender, RoutedEventArgs e)
