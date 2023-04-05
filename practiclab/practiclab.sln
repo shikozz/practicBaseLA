@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "practiclab", "practiclab\practiclab.csproj", "{6BC716DD-2454-4646-9C33-196CFCEABD94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestPracticBaseLA", "UnitTestPracticBaseLA\UnitTestPracticBaseLA.csproj", "{C144690D-F4EE-4F1F-8B30-C93626B2EA5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{6BC716DD-2454-4646-9C33-196CFCEABD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BC716DD-2454-4646-9C33-196CFCEABD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BC716DD-2454-4646-9C33-196CFCEABD94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C144690D-F4EE-4F1F-8B30-C93626B2EA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C144690D-F4EE-4F1F-8B30-C93626B2EA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C144690D-F4EE-4F1F-8B30-C93626B2EA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C144690D-F4EE-4F1F-8B30-C93626B2EA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,6 +29,7 @@ namespace practiclab
 
         private void addProd_Click(object sender, RoutedEventArgs e)
         {
+            //Создание нового продукта и наполнение его данными
             var newProd = new Base.Product();
             newProd.ProductArticleNumber = article.Text;
             newProd.ProductName = name.Text;
@@ -41,6 +42,7 @@ namespace practiclab
             newProd.ProductStatus = status.Text;
             SourceCore.MyBase.Product.Add(newProd);
             SourceCore.MyBase.SaveChanges();
+            //Обновление списока продуктов с главной страницы
             mainwindow.UpdateList(null);
             mainwindow.prodList.SelectedItem = newProd;
             mainwindow.prodList.UpdateLayout();

@@ -31,7 +31,7 @@ namespace practiclab
             loginbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             guestbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             dispatcherTimer = new DispatcherTimer();
-
+            //Попытка подключиться к базе
             try
             {
                 DataBase = new Base.practic_LAEntities();
@@ -43,51 +43,41 @@ namespace practiclab
                 Close();
             }
         }
-
-        public void Autho(string login, string pass, Base.practic_LAEntities DataBaseTest)
+        //Метод авторизации
+        public void Autho()
         {
+            //
             captchaInput.Text = " " + captchaInput.Text;
-            if (login == null && pass == null)
+            Base.User User = DataBase.User.SingleOrDefault(U => U.UserLogin == logintxt.Text && U.UserPassword == passtxt.Text);
+            //Проверка правильности введенной капчи и пользователя
+            if (User != null && captchatxt.Text == captchaInput.Text)
             {
-                Base.User User = DataBase.User.SingleOrDefault(U => U.UserLogin == logintxt.Text && U.UserPassword == passtxt.Text);
-
-                if (User != null && captchatxt.Text == captchaInput.Text)
-                {
-                    MainWindow window = new MainWindow(User.UserRole);
-                    window.Show();
-                    Close();
-                }
-                else
-                {
-
-                    loginbtn.IsEnabled = false;
-                    guestbtn.IsEnabled = false;
-                    dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-                    dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
-                    dispatcherTimer.Start();
-                    captchat.Visibility = Visibility;
-                    captchai.Visibility = Visibility;
-                    generateCaptcha();
-                }
+                //Открытие главного окна
+                MainWindow window = new MainWindow(User.UserRole);
+                window.Show();
+                Close();
             }
             else
             {
-                Base.User User = DataBaseTest.User.SingleOrDefault(U => U.UserLogin == login && U.UserPassword == pass);
-
-                if (User != null && captchatxt.Text == captchaInput.Text)
-                {
-                    userId = User.UserID;
-                }
-            }
+                //Включение отображение капчи и требование ее ввести
+                loginbtn.IsEnabled = false;
+                guestbtn.IsEnabled = false;
+                dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 10);
+                dispatcherTimer.Start();
+                captchat.Visibility = Visibility;
+                captchai.Visibility = Visibility;
+                generateCaptcha();
+            }        
         }
-
+        //Тик таймера
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             loginbtn.IsEnabled = true;
             guestbtn.IsEnabled = true;
             dispatcherTimer.Stop();
         }
-
+        //Генерация капчи
         private void generateCaptcha()
         {
             String allowchar = " ";
@@ -112,7 +102,7 @@ namespace practiclab
 
         private void loginbtn_Click(object sender, RoutedEventArgs e)
         {
-            Autho(null,null,null);
+            Autho();
         }
 
         private void guestbtn_Click(object sender, RoutedEventArgs e)

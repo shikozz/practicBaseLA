@@ -34,12 +34,13 @@ namespace practiclab
             redactbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             delbtn.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
             exit.Background = new SolidColorBrush(Color.FromRgb(118, 227, 131));
+            //Если пользователь не администратор - скрыть админ панель
             if (roleUser!=1)
             {
                 adminpanel.Visibility = Visibility.Hidden;
                
             }
-
+            //Вывод ФИО пользователя на главный экран
             if(roleUser==10)
             {
                 fio.Content += "Гость";
@@ -51,7 +52,7 @@ namespace practiclab
             }
             UpdateList(null);
         }
-
+        //Обновление списка продуктов
         public void UpdateList(Base.Product Product)
         {
             if((Product==null)&&(prodList.ItemsSource!=null))
@@ -69,13 +70,13 @@ namespace practiclab
         {
 
         }
-
+        //Открытие окна с добавлением нового продукта
         private void addbtnclick(object sender, RoutedEventArgs e)
         {
             addNewObj newWindow = new addNewObj(this);
             newWindow.ShowDialog();
         }
-
+        //Удаление продукта
         private void delbtn_Click(object sender, RoutedEventArgs e)
         {
             SelectedProd = (Base.Product)prodList.SelectedItem;
@@ -93,21 +94,21 @@ namespace practiclab
                 }
             }
         }
-
+        //Редактирование продукта
         private void redactbtn_Click(object sender, RoutedEventArgs e)
         {
             SelectedProd = (Base.Product)prodList.SelectedItem;
             redact newWindow = new redact(SelectedProd, this);
             newWindow.ShowDialog();
         }
-
+        //Возврат к окну авторизации
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             LOGIN newLogin = new LOGIN();
             newLogin.Show();
             Close();
         }
-
+        //Поиск по нескольким полям
         private void filterText_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textbox = sender as TextBox;
@@ -117,7 +118,7 @@ namespace practiclab
             Q.ProductCategory.Contains(textbox.Text)
             ).ToList();
         }
-
+        //Сортировка по цене товара
         private void sort_Click(object sender, RoutedEventArgs e)
         {
             if (sortOrder)
@@ -135,7 +136,7 @@ namespace practiclab
                 sortOrder = true;
             }
         }
-
+        //Комбо-бокс
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             combo.Text = "";
